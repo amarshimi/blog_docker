@@ -1,0 +1,45 @@
+version: '3.1'
+
+services:
+
+  blog-drupal:
+    build: .
+    ports:
+      - 1111:80
+    volumes:
+      - ./html:/var/www/html
+    restart: always
+    container_name: blog_drupal
+
+  blog-mysql:
+    image: mysql:5.7
+    command:
+      'mysqld --innodb-flush-method=fsync'
+    ports:
+      - 3307:3306
+    volumes:
+      - ./mysql/runtime2:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    container_name: blog_mysql
+
+  blog-sass:
+    build: ./sass-watcher
+    volumes:
+      - ./html/web/themes/custom/drupal_blog/sass:/sass
+      - ./html/web/themes/custom/drupal_blog/css:/css
+    restart: always
+    container_name: blog_sass
+
+  phpmyadmin:
+    depends_on:
+      - blog-mysql
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    container_name: blog_phpmyadmin
+    ports:
+      - 3333:80
+    environment:
+      PMA_HOST: blog-mysql
+      MYSQL_ROOT_PASSWORD: root
