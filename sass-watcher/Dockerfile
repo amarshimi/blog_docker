@@ -7,4 +7,4 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
     && apt-get install -y nodejs \
     && npm install -g --unsafe-perm node-sass
 
-CMD node-sass --watch --recursive /sass --output /css
+CMD node-sass --watch --recursive /sass --output /css --source-map true
