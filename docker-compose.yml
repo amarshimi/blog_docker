@@ -8,7 +8,6 @@ services:
       - 1111:80
     volumes:
       - ./html:/var/www/html
-    restart: always
     container_name: blog_drupal
 
   blog-mysql:
@@ -19,7 +18,6 @@ services:
       - 3307:3306
     volumes:
       - ./mysql/runtime2:/var/lib/mysql
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
     container_name: blog_mysql
@@ -29,7 +27,6 @@ services:
     volumes:
       - ./html/web/themes/custom/drupal_blog/sass:/sass
       - ./html/web/themes/custom/drupal_blog/css:/css
-    restart: always
     container_name: blog_sass
 
   admin-sass:
@@ -37,14 +34,12 @@ services:
     volumes:
       - ./html/web/themes/custom/admin_blog/sass:/sass
       - ./html/web/themes/custom/admin_blog/css:/css
-    restart: always
     container_name: admin_sass
 
   phpmyadmin:
     depends_on:
       - blog-mysql
     image: phpmyadmin/phpmyadmin
-    restart: always
     container_name: blog_phpmyadmin
     ports:
       - 3344:80
