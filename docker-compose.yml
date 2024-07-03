@@ -22,20 +22,6 @@ services:
       MYSQL_ROOT_PASSWORD: root
     container_name: blog_mysql
 
-  blog-sass:
-    build: ./sass-watcher
-    volumes:
-      - ./html/web/themes/custom/drupal_blog/sass:/sass
-      - ./html/web/themes/custom/drupal_blog/css:/css
-    container_name: blog_sass
-
-  admin-sass:
-    build: ./sass-watcher
-    volumes:
-      - ./html/web/themes/custom/admin_blog/sass:/sass
-      - ./html/web/themes/custom/admin_blog/css:/css
-    container_name: admin_sass
-
   phpmyadmin:
     depends_on:
       - blog-mysql
